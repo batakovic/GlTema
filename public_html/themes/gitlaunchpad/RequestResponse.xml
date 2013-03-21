@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<root>
+        <garden>
+            <api>
+                <addAuthorisedUser>
+                    <request>
+                        <licenceKey>
+                            18119163e0fc6dc7fb6f9207c43b735acc2db8d0
+                        </licenceKey>
+
+                        <username>
+                            matijap
+                        </username>                 
+                    </request>
+                    <response>
+                        <isAuthorized>
+                            true
+                        </isAuthorized>
+                    </response>                
+                </addAuthorisedUser>
+
+                <log>
+                    <request>                    
+                        <active_instance_url>
+                            matija.propulsionplatform.com
+                        </active_instance_url>
+
+                        <type_id>
+                            2
+                        </type_id>
+
+                        <value>
+                            tamonesto has deployed successfully
+                        </value>
+                    </request>
+
+                    <response>
+                        <isStored>
+                            true
+                        </isStored>
+                    </response>
+
+                </log>
+
+                <downloadRelease>
+                    <request>
+                        <api_username>
+                            dev                            
+                        </api_username>
+                        
+                        <api_password>                            
+                            yvdv217w
+                        </api_password>
+                        
+                        <licence_key>
+                               18119163e0fc6dc7fb6f9207c43b735acc2db8d0                        
+                        </licence_key>
+                        
+                        <version>
+                            2                            
+                        </version>
+                    </request>
+                    
+                    <response>
+                        <error>
+                            licence is invalid                            
+                        </error>
+                        
+                        <requested_version>
+                            .....                            
+                        </requested_version>
+                    </response>
+
+
+                </downloadRelease>            
+            </api>
+        </garden>
+</root>

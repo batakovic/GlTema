@@ -1,0 +1,86 @@
+<script src="<?php echo APP_URL ."/". $this->theme->path;?>/js/download.js"></script>
+<?php 
+
+
+        $title       = $this->article->bannertitle;
+        $description = $this->article->description;
+        $content1    = $this->article->login_text;
+        $content2    = $this->article->general_condition;
+        
+        $shopFormFieldUsername = $this->shopFormFieldUsername;
+        $shopFormFieldTerms    = $this->shopFormFieldTerms;
+
+?>
+
+
+
+        <div id="aboutBanner">
+            <div id="aboutBannerTextDiv">
+                <p id="aboutBannerText">
+                    <? echo stripslashes($title); ?>
+                </p>
+            </div>            
+          </div>
+        <div id="greyRibbon"></div>
+        
+        <div id="increasingDiv" class ="wrapper" style="border-bottom: 1px solid; border-bottom-color: #e6e6e6;">
+        
+        <div class="mainContainer">           
+            
+            <div class="leftContainer">
+            </div>
+            
+            <div class="rightContainer">
+                
+                 <div class="blackField">
+                    <p class="blackFieldText blackFieldTextPress">
+                         <?  echo stripslashes($description); ?>
+                    </p>
+                </div>
+                
+            </div>
+            <div class="centerContainer">
+                <?php if ($this->successDownload) {
+                        echo '<label style="font-size:20px"'.stripslashes($content1).'</label>';
+                 ?>
+                <script>
+                    window.location = appUrl+"/onlineshop/downloadgitlaucnhpad/orderId/<?php echo $this->orderId ?>";
+                </script>
+                <?php } else { 
+                            if (is_null($this->user)) {
+                            echo stripslashes($content1); ?> 
+                            <p style="margin-top: 25px;">
+                               <button class="loginbutton gitlogin" value="Login"></button>
+                            </p>
+                    <?php } else {
+                            ?>
+                            <script>
+                                var shopUserFieldID  = "shopField_<?php echo $shopFormFieldUsername->id?>";
+                                var shopTermsFieldID = "shopField_<?php echo $shopFormFieldTerms->id?>";
+                                var gitHubUsername   = "<?php echo $this->user->username?>";
+                            </script>
+                            <div class="generalConditionWraper">
+                                <div class="generalCondition">
+                                 <?php echo stripslashes($this->licence->terms_and_conditions); ?>   
+                                </div>
+                            </div>
+                            <form id="glShopFrom">
+                                <input type ="hidden" name="shopFormId"  value="<?php echo $this->shopForm->id ?>"/>
+                                <input id="activeDisplayGroup" type="hidden" value="GitLaunchpad" name="activeDisplayGroup">
+                                <label  class="fl"><input type="radio" name="shopField_<?php echo $shopFormFieldTerms->id?>" value="1"> <?php echo $this->translate->_('I have read and fully understood General Terms and Conditions and I accept them') ?></label>
+                                <label  class="fr"><input type="radio" name="shopField_<?php echo $shopFormFieldTerms->id?>" value="0"> <?php echo $this->translate->_('I do not accept General Terms and Conditions')?></label>
+                                <div style="clear: both"></div>
+                                <div style="margin: 10px 0 10px 0">                                
+                                    <input type="hidden" name="shopField_<?php echo $shopFormFieldUsername->id?>" value='<?php echo $this->user->username?>'/>
+                                </div>
+                            </form>
+                            <div style="clear: both"></div>
+                            <div class="alert" style="display: none;"></div>
+                    <?php        
+                          } 
+                    }?>
+            </div>
+
+        </div>
+            
+      </div>

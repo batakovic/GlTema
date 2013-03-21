@@ -1,0 +1,227 @@
+<?php
+
+
+$allTickets = $this->alltickets;
+
+$bannerTitle=$this->article->bannertitle;        
+$description=$this->article->description;
+
+
+?>
+
+
+
+<script src="<?php echo APP_URL . "/" . $this->theme->path; ?>/js/admin.js"></script>
+    <div id="aboutBanner">
+        <div id="aboutBannerTextDiv">
+            <p id="aboutBannerText">
+                <?php echo stripslashes($bannerTitle); ?>
+            </p>
+        </div>            
+    </div>
+
+    <div id="greyRibbon"></div>
+    
+     <div class="bg">
+        
+        <div class="mainContainer">
+            
+            <div class="topContainer">
+                 
+                 <div class="blackField right">
+                    <p class="blackFieldText blackFieldTextPress">
+                        <?php echo stripslashes($description); ?>
+                    </p>
+                </div>
+                
+             </div>
+            
+            <div class="backToDashBoard">
+                <a href="<?php echo APP_URL.'/gl/content/admin' ?>">Back to Dashboard</a>
+            </div>
+            
+            <?php
+            
+            
+            switch ($this->status) {
+                
+                case 'success':
+                    
+                    echo '<div class="flw100 successForm formStatus">';
+                    echo '<h2>Form submited successfully.</h2>';
+                    echo '</div>';
+
+                    break;
+                case 'error':
+                    
+                    echo '<div class="flw100 errorForm formStatus">';
+                    echo '<h2>We encountered error while submiting form. Please try again or later.</h2>';
+                    echo '</div>';
+
+                    break;
+
+                default:
+                    break;
+            }
+            
+            ?>
+            
+            <div class="licensesDiv" style="min-height: 450px;">
+                
+                <?php 
+                
+                    foreach ($allTickets as $oneTicket) {
+                 ?>                
+                <div class="ticketDiv">
+                    
+                    <div class="flw100 ticketTitleDiv">
+                        <div style="margin: auto; margin-top: 28px; width: 905px;">
+                            <div class="topicTitle">
+                                <?php echo $oneTicket['ticket_code'].'-'.$oneTicket['ticket_title']; ?>
+                            </div>
+                            <div class="ticketStatus <?php echo ($this->ticketid == $oneTicket['id'] ? 'w385': ''); ?>">  
+                                <?php echo '<p class="ticketStatusText">Status:&nbsp;</p> '.($oneTicket['status'] ? '<p class="ticketClosed">Closed</p>' : '<p class="ticketOpen">Open</p>'); ?>
+                            </div>
+                            
+                            <?php
+                            
+                            if($this->ticketid != $oneTicket['id']) {
+                            
+                                echo '<div class="replyFrom">';
+                                echo '<p class="ticketStatusText">Reply from:&nbsp; </p><p class="attachmentName">'.$oneTicket['fullname'].'</p>';
+                                echo '</div>';                                
+                            }
+                            
+                            ?>
+                            
+                            <div class="ticketDate">
+                                <p>
+                                <?php echo ($this->ticketid == $oneTicket['id'] ? 'Created on:&nbsp;': 'Reply on:&nbsp;').Platforma_Utilities::formatDate($oneTicket['date']); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flw100 ticketTextDiv">
+                        
+                        <div style="width: 905px; margin-top: 35px; margin-bottom: 35px; margin-left: auto; margin-right: auto;">
+                            <p>
+                                <?php echo $oneTicket['ticket_message']; ?>
+                            </p>
+                        </div>
+                    </div>
+                    <?php 
+                    if(count($oneTicket['attachments'])>0){ ?>
+                        
+                    <div class=" flw100 attachmentsList">
+                        <div style="margin-top: 20px; margin-bottom: 20px; margin-left: auto; margin-right: auto; width: 905px;">
+                            <p class="attachmentCount"><?php echo count($oneTicket['attachments']); ?> attached file<?php echo (count($oneTicket['attachments'])>1 ? "s" : "");?></p><p class="attachmentTotalSize"><?php echo Platforma_Utilities::formatSize($oneTicket['attachmentTotalSize']) ?></p>
+                        
+                        
+                            <div class="flw100" style="margin-top: 5px; padding-bottom: 5px;">
+                                    
+                                <?php
+                                $counter = 1;
+                                foreach ($oneTicket['attachments'] as $oneAtachment){
+                                    
+                                    if($counter == 1){
+                                    
+                                        echo '<div class="attachmentRow">';
+                                    }
+                                    
+                                    echo '<div class="oneAttachment">';
+                                    echo '<a href="'.APP_URL.'/gl/content/downloadattachment/filename/'.$oneAtachment['attachment_name'].'"><p class="attachmentName">'.$oneAtachment['attachment_name'].'&nbsp;&nbsp;</p><p class="attachmentSize"> ('.Platforma_Utilities::formatSize($oneAtachment['filesize']).') </p></a>';
+                                    echo '</div>';
+                                    
+                                    if($counter == 3){
+                                        echo '</div>';
+                                        $counter = 1;
+                                    }else {
+                                        $counter++;
+                                    }
+                                }
+                                
+                                ?>
+                            </div>
+                         </div>
+                     </div>
+                 </div>
+                        
+                   <?php }                  
+                    
+                    ?>
+                    
+                </div>
+                
+                <?php   }
+                
+                ?>
+            
+                <div class="paginationBlack fr">
+                    <?php echo $this->paginationControl($this->alltickets,'Sliding','paginator.phtml'); ?>
+                </div>
+                
+                <div class="flw100">
+                    <p class="licensesTitle fl" style="margin-bottom: 5px;">
+                         get support
+                    </p>
+                </div>
+                <div class="blueBorderBottom" style="clear: both;"></div> 
+                
+                <div class="supportFormDiv" style="padding-bottom: 20px;">
+                        <a name="#reply"></a>
+                        <form action="<?php echo APP_URL.'/gl/content/submitticket/reply/1/ticketID/'.$this->ticketid ?>" id="ticketForm" method="post" enctype="multipart/form-data">
+                            <div class="flw100" style="margin-bottom: 7px;">
+                                <div class="attachmentsDiv">
+                                    <p class="licensesTitle fl">
+                                        attachments
+                                    </p>
+                                </div>
+                                <div class="areaDiv">
+                                    <p class="licensesTitle fl">
+                                        your message
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="attachmentsDiv">                                
+
+                                <div class="attachmentField" style="margin: 0px;">
+
+                                    <div class="cabinetSupport">
+                                            <span class="attachmentSpan">Select file</span>
+                                            <input type="file" class="uploadFile activeFile" name="attachment[]" id="file-1">
+                                            <input type="hidden" id="attachmentCount" value="1"> 
+                                        </div>
+                                    <div style="width: 92px; float: left;">
+                                            <button type="button" class="addProblem">+ add</button>
+                                    </div>                                    
+                                </div>
+                                
+
+                                <div class="fileList" style="height: 53px;">                                  
+                                    <ol class="attachmentList">                                                                          
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <div class="areaDiv">
+                                <textarea class="supportArea" name="ticketMessage"></textarea>
+                            </div>
+                            
+                            <div class="submitSupport">                                
+                                <span class="formSubmitSpan">
+                                    <p class="formSubmitErrorInfo">                                            
+                                    </p>
+                                </span>
+                                <input type="submit" class="submitSupportButton" value="Submit request"/>
+                                
+                                <div class="formSubmitLoader"></div>
+                            </div>                            
+                            
+                            <input type="hidden" name="ticket" value="ticket" />
+                        </form>
+                 </div>                
+            </div>
+            
+        </div>
+     </div>

@@ -1,0 +1,124 @@
+Prva i najbitnija stvar, svaki request je spakovan kao XML, sto je samo radi lakseg pregleda i snalazenja. To NE ZNACI da ce request da se salje kao XML nego ce ispod da bude objasnjen nacin za slanje svakog requesta.
+
+
+Primer 1: Public auth, getUpdateList
+
+
+POST garden.propulsionapp.com/garden/api/get-update-list
+
+PARAMS
+
+type = auth
+auth[instanceURL] = www.test.com
+auth[licenseKey] = 123456789
+auth[applicationVersion] = 1.2.3
+auth[username] = test
+auth[applicationname] = PP
+
+Dakle, na gornji link se radi post ovih navedenih parametara i na osnovu toga se izvrsava API.
+
+To treba da funkcionise na sledeci nacin:
+
+ 1) U preDespatch metodi u API kotnroleru unutar modula garden, potrebno je izvrsiti autorizaciji i proveru za autorizaciju. Sto znaci, na osnovu parametra type, proveriti o kom tipu autorizacije se radi, da li je to public ili private autorizacija;
+
+ Ako je type = auth, znaci da je autorizacija public. Ako je type = auth, potrebna je metoda koja ce na osnovu tipa da proveri autorizaciju i da vrati true ili false.
+
+ Ako autorizacija prodje u preDespatchu, onda nastavaljamo dalje u akciju i radimo sve ostale potrebne stvari.
+
+<xml>
+	<request>
+		<type>auth</type>
+		<auth>
+			<instanceURL></instanceURL>
+			<licenseKey></licenseKey>
+			<username></username>
+			<applicationVersion></applicationVersion>
+			<applicationName></applicationName>
+		</auth>
+		<updateList></updateList>
+	</request>
+</xml>
+
+
+Kada kreiramo response, uvek moramo da imamo status koji je true ili false i uvek moramo da imamo message. Message ce da bude popunjen onda kada je status false, gde cemo kazemo zasto je nesto fejlovalo (primer: nismo poslali application url u requestu, vraticemo gresku da to nije popunjeno i da je to potrebno).
+
+Pored ove dve stavke u responsu, imacemo grupisane odgovore. E sad, svaki od tih odgovora (auth, updateList itd..) imace svoju process metodu koja ce da se zove processNazivOdgovora (primer, ako je odgovor updateList, imacemo metodu processUpdateList) u kojoj ce da se hendla response.
+
+Primer. Imamo auth odovor, sve parametre unutar njega (licenseKey) saljemo u metodu koja se zove processAuth i unutar nje radimo proveru, da li licenca postoji u application.xml fajlu i ako ne postoji upisujemo ovu dobijenu iz responsa. 
+
+<xml>
+	<response>
+		<status>1/0</status>
+		<message></message>
+		<auth>
+			<licenseKey></licenseKey>
+		</auth>
+		<updateList>
+			<version></version>
+			<version></version>
+			<version></version>
+		</updateList>
+	</response>
+</xml>
+
+
+
+Primer 2: Public auth, downloadUpdate
+<xml>
+	<request>
+		<type>auth</type>
+		<auth>
+			<instanceURL></instanceURL>
+			<licenseKey></licenseKey>
+			<username></username>
+			<applicationVersion></applicationVersion>
+			<applicationName></applicationName>
+		</auth>
+		<downloadUpdate>
+			<version></version>
+		</downloadUpdate>
+	</request>
+</xml>
+
+U ovom responsu cemo da pozovemo metodu koja se zove processDownloadUpdate()
+
+<xml>
+	<response>
+		<status>1/0</status>
+		<message></message>
+		<auth>
+			<licenseKey></licenseKey>
+		</auth>
+		<downloadUpdate>
+			<version></version>
+			<content></content>
+		</downloadUpdate>
+	</response>
+</xml>
+
+
+Primer 3: Private auth, addRelease
+<xml>
+	<request>
+		<type>api-auth</type>
+		<auth>
+			<apiUsername></apiUsername>
+			<apiPassword></apiPassword>
+			<ip></ip>
+		</auth>
+		<addRelease></addRelease>
+	</request>
+</xml>
+
+U ovom responsu cemo da imamo metodu koja se zove processAddRelease()
+
+<xml>
+	<response>
+		<status>1/0</status>
+		<message></message>
+		<addRelease>
+			<latestReleaseVersion></latestReleaseVersion>
+			<latestUpdateVersion></latestUpdateVersion>
+		</addRelease>
+	</response>
+</xml>

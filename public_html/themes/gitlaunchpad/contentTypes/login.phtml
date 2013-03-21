@@ -1,0 +1,56 @@
+<?php 
+    $error = isset($this->error) ? $this->error : "";
+?>
+<div class="about-slider">
+    <div class="wrapper-login">
+        <img src="<?php echo APP_URL ."/". $this->theme->path;?>/images/login-header.png" />
+    </div>
+</div>
+<script>
+jQuery(document).ready(function() {
+
+    //Message focus and blur
+    $("input[type='text'],input[type='password']").focus(function(){
+        if($(this).val()==$(this).attr("default")) $(this).val("");
+    });
+    $("input[type='text'],input[type='password']").blur(function(){
+        if($(this).val()=="") $(this).val($(this).attr("default"));
+    });
+    });
+    
+</script>
+
+<div class="border-slider-bottom"></div>
+<div class="content">
+    <div class="content-wrapper">
+                        
+        <!-- Login box -->               
+        <div class="login-box">
+            <h1>Log in to your account to view your invoices or update you license information.</h1>
+            <?php if($error=='login'): ?>
+            <div class="error_msg" style="width: 400px;">
+                Login error. User with entered email/password does not exist.
+            </div>
+            <?php endif; ?>
+            <form method="post" action="<?= APP_URL; ?>/shop/loginprocess">
+                <div class="rowElem">
+                    <input type="text" class="loginText <?php echo $error=='login' ? 'error' : ''; ?>" default="Your email address" value="Your email address" id="email" name="email" />
+                </div>
+                <div class="rowElem">
+                    <input type="password" class="loginText" <?php echo $error=='login' ? 'error' : ''; ?>" default="Password" value="Password" id="password" name="password" />
+                </div>
+                <div class="rowElem">
+                   <div class="remember">
+                       <input type="checkbox" name="remeber" id="remeber" /> <label for="remeber">Remeber me</label>
+                   </div>
+                   <a href="#" class="forgot_password">Forgot your password?</a>
+                   <input type="submit" class="loginSubmit" value="LOGIN" />
+                   <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </form>
+        </div>       
+        <!-- End Login box -->                 
+        <div class="clear"></div>
+    </div>
+</div>

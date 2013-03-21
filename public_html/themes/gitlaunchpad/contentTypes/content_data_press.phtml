@@ -1,0 +1,73 @@
+<script src="<?php echo APP_URL . "/" . $this->theme->path; ?>/js/press.js"></script>
+<?php 
+
+        $title=$this->article->bannertitle;
+        $content1=$this->article->content1;
+        $content2=$this->article->content2;
+        $content3=$this->article->content3;
+        $description=$this->article->description;
+        $mediakitthumb = str_replace(WEB_ROOT_PATH, APP_URL, $this->article->mediakitthumb);
+        $testZip=str_replace(WEB_ROOT_PATH, APP_URL, $this->article->mediakitdownload);
+        
+
+?>
+
+
+        <div id="aboutBanner">
+            <div id="aboutBannerTextDiv">
+                <p id="aboutBannerText">
+                    <? echo stripslashes($title); ?>
+                </p>
+            </div>            
+          </div>
+        <div id="greyRibbon"></div>
+        
+        <div class ="wrapper" style="border-bottom: 1px solid; border-bottom-color: #e6e6e6;" id="increasingDiv">
+        
+        <div class="mainContainer">           
+            
+            <div class="leftContainer">
+                
+                <div class="press_leftContainer cont1">
+                    
+                    <?  echo stripslashes($content1); ?>
+                    
+                </div>
+                
+                <div class="press_leftContainer cont2">                    
+                    
+                    <p id="emailDivText">
+                        <?  echo stripslashes($content2); ?>
+                    </p>
+                    
+                </div>
+                
+                <div class="press_leftContainer cont3">                    
+                    
+                    <p id="emailDivText">
+                         <?  echo stripslashes($content3); ?>
+                    </p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="rightContainer">
+                
+                 <div class="blackField">
+                    <p class="blackFieldText blackFieldTextPress">
+                         <?  echo stripslashes($description); ?>
+                    </p>
+                </div>
+                
+                <div id="gitLaunchPadDiv">
+                    <div id="dummyContainer"></div>
+                    <div id="gitLinkImageContainer">
+                    <a href="<? echo $testZip; ?>" class="downloadGit">Link</a>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+     </div>

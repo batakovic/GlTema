@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title><?php echo $this->pageTitle . " - ".$this->websiteInfo["site_title"];?></title>
+        <meta name="description" content="<?php echo $this->websiteInfo["description"];?>" />
+        <meta name="keywords" content="<?php echo $this->websiteInfo["keywords"];?>" />
+        <script type="text/javascript" src="//cdn.sublimevideo.net/js/3fashmr4.js"></script>        
+        <script type="text/javascript" src="<?php echo APP_URL . "/adminThemes/" . $this->adminTheme; ?>/js/jquery.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" ></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" ></script>
+        <script type="text/javascript" src="<?php echo APP_URL . "/adminThemes/" . $this->adminTheme; ?>/js/jquery.img.preload.js"></script>
+        <script src="<?php echo APP_URL ."/". $this->theme->path;?>/bootstrap/js/bootstrap.min.js"></script>        
+        <link rel="stylesheet" type="text/css" href="<?php echo APP_URL ."/". $this->theme->path;?>/bootstrap/css/custombootstrap.css" media="all" /> 
+        <link rel="stylesheet" type="text/css" href="<?php echo APP_URL ."/". $this->theme->path;?>/css/style.css" media="all" />
+        <script src="<?php echo APP_URL . "/" . $this->theme->path; ?>/js/layout.js"></script>
+        
+       
+        
+        <script>
+            var isLogedUser = false;
+        <?php if (!is_null($this->user)):?>
+                isLogedUser = true;
+        <?php endif;?>
+            
+            var appUrl = "<?php echo APP_URL?>";
+        </script>
+        
+       
+        
+    </head>
+    
+    <body>
+        
+      <?php $appUrl=APP_URL ."/". $this->theme->path; ?>     
+        
+      <div id="header">
+            <div id="headerContainter">
+                <div id="bannerImage">
+                     <a href="<? echo APP_URL;?>/gl/content/home"><img src="<?php echo $appUrl ?>/images/banner.png"></a>      
+                </div>
+                <div id="bannerText">
+                    <p id="bannerTextStyle">CHANGING  THE  WAY  YOU  WORK</p>
+                </div>
+                <?php 
+             //   if(is_null($this->user))
+              //  {
+                
+             //   if ($this->user->id) : ?>
+                <div id="loginImage">
+                    
+                    <?php 
+                if(!$this->logedUser) 
+                {     ?>
+                    
+                      <button id="login" class="buttonLoginHeader gitlogin" value="Login">LOGIN WITH <label class="GitHub">github</label></button>
+                     <?php 
+                }else
+                {
+                     ?>
+                      
+                     <button id="logout" class="buttonLogout gitlogout" value="Logout">Logout</button>
+                     <?php
+                }
+                     ?>
+                      <script>
+                     $(".gitlogin").live('click', function() {                     
+                         window.location.href='https://github.com/login/oauth/authorize?client_id=<?php echo $this->clientID; ?>&scope=user';
+                     });
+                     
+                     $(".gitlogout").live('click', function() {                     
+                        window.location.href='<? echo APP_URL;?>/login/logout';
+                     });
+                     
+                    </script>
+                </div>
+                <?php
+             //   }
+                
+                
+                
+                //endif; ?>
+            </div>
+            
+      </div>
+         
+        
+        <?php if(isset($this->articlePhtml)){ ?>
+            <?php require_once($this->articlePhtml); 
+        } else {
+        	echo $this->layout()->content;	
+        }	?>
+    
+        
+      <? if(!$this->admin): ?>  
+      <div id="tweeter">
+                <div id="tweeterImageContainer">
+                    <div id="watchMoreVideos">
+                        <a href="<? echo APP_URL;?>/gl/content/clips" class="watchMore">Link</a>
+                    </div>
+                    <div id="downloadNow">
+                         <a href="download" class="downloadNow">Link</a>
+                    </div>
+                    <div id="tweeterImg">
+                        <a href="#" class="twitterbird">Link</a>
+                     </div>
+                </div>
+        </div>
+        <? endif; ?>
+        
+        <div id="footer">            
+                <? 
+                
+                     $footerMenu = $this->menus['Footer menu'];
+                     require WEB_ROOT_PATH.$this->theme->path."/contentTypes/footermenu.phtml";               
+                ?>
+         </div>      
+    </body>    
+</html>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>GitLaunchpad installer</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+        <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
+        <script type="text/javascript" src="js/custom.js"></script>
+    </head>
+    <body> 
+	    <div class="header">
+            <div class="wrapper">
+                <img class="logo" src="images/logo.png" />
+                <div class="title">INSTALLER</div>
+            </div>
+	    </div>
+        <div class="background-image-x">
+            <div class="head-div">
+            </div>
+            <div class="wrapper">
+                <div class="dialog">
+                    <div class="left-box">
+                        <ul>
+                            <li class="active"><a id="1" href="#">URL and paths</a></li>
+                            <li><a id="2" href="#">Database info</a></li>
+                            <li><a id="3" href="#">Login details</a></li>
+                            <li><a id="4" href="#">Installation process</a></li>
+                        </ul>
+                    </div>
+                    <div class="right-box">
+                        <div class="right-box-header">
+                            <p id="stepTitle"></p>
+                        </div>
+                        <div class="content">
+                            <div class="text-box" id="stepText"></div>
+                            <div class="form-box">                                
+                                <form id="install_form" name="install_form" method="post" action="#" onsubmit="return false;" enctype="multipart/form-data">
+                                	<div class="step1">
+                                   	    <div class="ElemRow">
+	                                        <div class="label">Application URL:</div><input type="text" name="domain" class="text300 w500" name="" id="domain" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Application public path:</div><input type="text" class="text300 w500" name="www_path" id="www_path" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Application core path:</div><input type="text" class="text300 w500" name="application_path" id="application_path" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                   	<div class="nextBox">                          
+	                                		<input type="button" class="next" value="" />
+	                                	</div>
+                                    </div>                                    
+                                    <div class="step2">
+	                                    <div class="ElemRow">
+	                                        <div class="label">Database server:</div><input type="text" class="text300 w500" name="database_server" id="database_server" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Database name:</div><input type="text" class="text300 w500" name="database_name" id="database_name" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Database user:</div><input type="text" class="text300 w500" name="database_user" id="database_user" autocomplete="off" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Database password:</div><input type="password" class="text300 w500"  name="database_password" id="database_password" autocomplete="off"/>
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="nextBox">                          
+	                                		<input type="button" class="next" value="" />
+	                                	</div>
+                                    </div>
+                                    <div class="step3">
+	                                    <div class="ElemRow">
+	                                        <div class="label">First name:</div><input type="text" class="text300 w500"  name="admin_name" id="admin_name" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Last name:</div><input type="text" class="text300 w500" name="admin_lastname" id="admin_lastname" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Username:</div><input type="text" class="text300 w500" name="admin_user" id="admin_user"  autocomplete="off"/>
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="ElemRow">
+	                                        <div class="label">Password:</div><input type="password" class="text300 w500" name="admin_password" id="admin_password" autocomplete="off" />
+	                                        <div class="clear"></div>
+	                                        <div class='labelErrorInput'></div>
+	                                    </div>
+	                                    <div class="nextBox">
+                                        <input id="install_button" class="install" type="button" value="">
+                                      </div>
+                                    </div>
+                                </form>
+                                <div id="installation_progress">                                                                  
+                                </div>
+					            <div id="refresh">
+					                <a href="javascript:javascript:history.go(0);">Try again</a>
+					            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="footer">
+        </div>
+    </body>
+</html>

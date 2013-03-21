@@ -1,0 +1,87 @@
+<?php
+
+$counter=1;
+
+//Zend_Debug::dump($articles);
+echo "<div class=\"row\">";
+
+foreach($articles as $articleSingle)
+{
+    $homepageArticle = $articleSingle['content']; 
+    
+    $videoUrl=$homepageArticle->video_url;
+    
+    $firstImage = str_replace(WEB_ROOT_PATH, APP_URL, $homepageArticle->thumb);
+    
+    
+     $imageUrl= APP_URL.$homepageArticle->thumb;
+     
+     
+    
+   
+    
+   // echo $homepageArticle->title;
+    
+    if($counter==2 || $counter==5)
+    {
+      // echo "counter je ".$counter."<br><br>";
+    ?>
+                     <div class="videoAndText middle">
+                         <div class="videos_clip">
+                             <a class="sublime zoomable" href="<? echo $videoUrl; ?>">
+                                <img src="<? echo $imageUrl; ?>" alt="" />
+                                 <span class="zoom_icon"></span>
+                              </a>
+                              <video style="display:none" class="sublime lightbox" width="640" height="360" poster="images/dashboard.png" preload="none">
+                                <source src="<? echo $videoUrl; ?>" />                    
+                              </video>
+                         </div>
+                         <div class="videos_text">
+                             <p id="emailDivText">
+                                 <? echo $homepageArticle->title; ?>
+                             </p>
+                         </div>
+                     </div>
+                    
+    
+    
+    <?
+    }else if($counter!=2 || $counter!=5)
+    {
+        //echo "counter je ".$counter;
+    ?>
+                    <div class="videoAndText">
+                         <div class="videos_clip">
+                             <a class="sublime zoomable" href="<? echo $videoUrl; ?>">
+                                <img src="<? echo $imageUrl; ?>" alt="" class="installation" />
+                                <span class="zoom_icon"></span>
+                              </a>
+                              <video style="display:none" class="sublime lightbox"  width="640" height="360" poster="images/installation.png" preload="none">
+                                <source src="<? echo $videoUrl; ?>" />                    
+                              </video>
+                         </div>
+                         <div class="videos_text">
+                             <p id="emailDivText">
+                                <? echo $homepageArticle->title; ?>
+                             </p>
+                         </div>
+                     </div>
+
+<?
+    }
+    
+    if($counter==3)
+    {
+        echo "</div>";
+        echo "<div class=\"row\">";        
+    }
+    if($counter==6)
+    {
+        echo "</div>";              
+    }
+    
+    $counter++;
+    
+    
+}
+?>

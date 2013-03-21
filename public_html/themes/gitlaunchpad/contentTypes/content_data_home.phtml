@@ -1,0 +1,49 @@
+    <?php $videoUrl= $this->article->video_url;
+          $description=$this->article->description;
+          $thumb=$this->article->thumb;
+          $appUrl=APP_URL ."/". $this->theme->path;
+          $imageUrl = APP_URL.$this->article->thumb;
+         // $imageUrl= APP_URL ."content_data_home/1542--clip.png";
+    ?>
+    
+
+    <div id="klip">
+           <a class="sublime zoomableIndexClip" href="<?php echo $videoUrl; ?>">
+                 <img src="<?php echo $imageUrl; ?>" alt="" />
+                 <span class="zoom_icon"></span>
+           </a>
+                 <video style="display:none" class="sublime lightbox"  width="1100" height="527" poster="<?php echo $imageUrl; ?>" preload="none">
+                 <source src="<?php echo $videoUrl; ?>" />                    
+                 </video>            
+    </div>
+
+
+   <div id="ribbonContainer">        
+        
+            <div id="blackRibbon">
+                <p id="blackRibbonText"> 
+                    <?php echo stripslashes($description); ?>
+                </p>
+                
+                <div id="imageContainer">
+                     <div id="watchMoreVideos">
+                        <a href="<? echo APP_URL;?>/gl/content/clips" class="watchMore">Link</a>
+                     </div>
+                     <div id="downloadNow">
+                        <a href="download" class="downloadNow">Link</a>
+                     </div>
+                </div>
+            </div>
+       
+   </div>    
+            <div  style="border-bottom: 1px solid; border-bottom-color: #e6e6e6; height: 1590px;" >
+                
+                <div id ="mainContHome" style="width: 1120px;  margin-left: auto; margin-right: auto;">
+                <?php 
+                 $articles = $this->regions['Content area']['feature-articles-list.phtml'];
+                 require WEB_ROOT_PATH.$this->theme->path."/widgets/feature-article-list.phtml";
+           
+                 ?>
+               </div>
+            </div>
+   

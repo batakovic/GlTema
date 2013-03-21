@@ -1,0 +1,47 @@
+             <div id="footerContainer">
+    
+                    <div id="author">
+                    Copyright &copy 2012 Propulsion Apps
+                    </div>
+                    <div id="contactContainer">
+
+<?php
+
+foreach($footerMenu as $footerLink)
+    { 
+                  
+                  $class="";
+                  
+                  if($footerLink->title == 'Press Center')
+                      $id="pressCenter";
+                  if($footerLink->title == 'About / Contact')
+                      $id="contactUs";
+                  if($footerLink->title == 'Login with GitHub')
+                      $id="loginWith";
+                  
+                  ?>  
+                        
+                     <div id="<? echo $id; ?>">
+                          <a href="
+                              
+                        <?php
+                          
+                        if(!$this->logedUser && $footerLink->title=='Your admin panel') { 
+                          
+                            echo 'https://github.com/login/oauth/authorize?client_id='.$this->clientID.'&scope=user'; ?>"><? echo "Login with GitHub";
+                        } else {
+                            
+                            echo APP_URL . $footerLink->url; ?>"><? echo $footerLink->title;
+                        }
+                          
+                          
+                         ?>
+                          
+                          
+                          
+                          </a>
+                     </div>
+                       
+<? } ?>
+                     </div>
+            </div>

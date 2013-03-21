@@ -1,0 +1,45 @@
+<?php 
+
+        $title=$this->article->bannertitle;        
+        $description=$this->article->description;
+        
+
+?>
+
+
+
+        <div id="aboutBanner">
+            <div id="aboutBannerTextDiv">
+                <p id="aboutBannerText">
+                     <? echo stripslashes($title); ?>
+                </p>
+            </div>            
+        </div>
+        <div id="greyRibbon"></div>
+        
+        <div class ="wrapper" style="border-bottom: 1px solid; border-bottom-color: #e6e6e6; height: 570px;">
+        
+        <div class="mainContainer">
+            
+            <div class="topContainer">
+                 
+                 <div class="blackField right">
+                    <p class="blackFieldText blackFieldTextVideos">
+                        <? echo stripslashes($description); ?>
+                    </p>
+                </div>
+             </div>
+            
+            <div class="bottomContainer">
+                 <?php
+                 //$articles = $this->regions['Content area']['video-list.phtml'];
+                 $articles = $this->regions['Content area']['videos.phtml'];
+                 require WEB_ROOT_PATH.$this->theme->path."/widgets/video-list.phtml";
+                 ?>
+                
+            </div>
+            
+            
+        </div>
+            
+       </div>

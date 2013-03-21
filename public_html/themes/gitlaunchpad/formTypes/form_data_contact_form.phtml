@@ -1,0 +1,88 @@
+<script src="<?php echo APP_URL . "/" . $this->theme->path; ?>/js/form.js"></script> 
+
+<?php
+
+       $formTypeFields = $contactForm->getFormTypeFieldList();
+       // Zend_Debug::dump($contactForm);
+        
+        
+        
+        
+        echo "<form method=\"post\" id=\"submitForm\" action=\"". APP_URL."/content/submitform\" enctype=\"multipart/form-data\">";
+        
+        ?> 
+            <input type="hidden" name="formTypeId" value="<?php echo $contactForm->id;  ?>" />
+            
+        <?
+        
+        $counter=1;
+        
+        foreach ($formTypeFields as $oneField)
+        {
+            //echo $oneField->title;
+            echo "<div class=\"rowElem\">";
+           
+            switch ($counter)
+            {
+                case 1:
+                        ?>
+                            <input type="text" class="contactFormTextRow" name="name" id="nameInput" value="Tell us your name" defVal="Tell us your name" defVal="Tell us your name"/>
+                             <div class='labelErrorInput'></div>
+                        <?
+
+                    break;
+                
+                case 2:
+                        ?><input type="<? echo $oneField->field_type; ?>" class="contactFormTextRow"  name="email" id="emailInput" value="Your email address" defVal="Your email address">
+                          <div class='labelErrorInput'></div>
+                         <?
+                    break;
+                         
+                case 3:
+                        ?><input type="<? echo $oneField->field_type; ?>" class="contactFormTextRow" name="subject" id="subjectInput"  value="Subject of your message" defVal="Subject of your message">
+                          <div class='labelErrorInput'></div>
+                        <?
+                    break;
+                
+                case 4:
+                        ?> <textarea type="textarea" spellcheck="false" id="messageInput" name="message" class="contactFormTextAreaRow">Message</textarea>
+                            <div class='labelErrorInput'></div>
+                        <?
+                    break;
+                case 5:
+                        ?>
+                            <div class="cabinet">                                
+                                <span>Attachment</span>
+                                <input type="file" class="uploadFile" value="" id="attachment" name="attachment"/> 
+                           </div>
+                        <?
+                    break;
+                
+                default:
+                    break;
+            }
+            
+            
+            echo "</div>"; 
+            $counter++;
+            if($counter==6)
+            {
+                
+                break;
+            }
+           
+        }        
+        ?>
+                        <div class="rowElem">
+                            <input type="submit" class="submit submitContact" value="send" />
+                            <div class="formSubmitLoader" style="display: none;"></div>
+                        </div>
+                        
+        <?
+        echo "</form>";
+       
+
+
+
+?>
+

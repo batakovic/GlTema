@@ -1,0 +1,335 @@
+<?php 
+
+        $bannerTitle=$this->article->bannertitle;        
+        $description=$this->article->description;
+        $whiteDivText=$this->article->whitediv;
+        
+        $licensesData = $this->licensesData;
+        
+        
+   switch($this->success) {
+       
+        case "ticketsubmited":
+            $msgInfo = "Ticket submited succesfully.";            
+            echo '<div class="message errormsg" style="display: block;" >'.$msgInfo.'</div>';
+            break;
+    }
+    
+    switch($this->error) {
+        case "ticketerror":
+            $msgInfo = "Error while submiting ticket.";
+            echo '<div class="message errormsg" style="display: block;" >'.$msgInfo.'</div>';
+            break;
+    }
+    
+
+        
+        
+?>
+    <script src="<?php echo APP_URL . "/" . $this->theme->path; ?>/js/admin.js"></script>
+
+
+    <div id="aboutBanner">
+        <div id="aboutBannerTextDiv">
+            <p id="aboutBannerText">
+                <?php echo stripslashes($bannerTitle); ?>
+            </p>
+        </div>            
+    </div>
+
+    <div id="greyRibbon"></div>
+    
+    <div class="bg">
+        
+        <div class="mainContainer">
+            
+            <div class="topContainer">
+                 
+                 <div class="blackField right">
+                    <p class="blackFieldText blackFieldTextPress">
+                        <?php echo stripslashes($description); ?>
+                    </p>
+                </div>
+                
+             </div>
+            
+            <div>                
+                <?php if(!isset($this->unreadnews['status'])){?>
+                <div class="whiteDiv" id="adminPageInfoDiv">
+                    <p class="news">
+                        <?php echo $this->unreadnews['content']; ?>
+                    </p>
+                </div>   
+                
+                <div class="closeButton" id="close" userID="<?php echo $this->user->id ?>" newsID="<?php echo $this->unreadnews['id'] ?>">
+                    <p>+</p>
+                </div>                
+                
+                <?php }?>
+                
+                <?php
+            
+            
+            switch ($this->status) {
+                
+                case 'success':
+                    
+                    echo '<div class="flw100 successForm formStatus">';
+                    echo '<h2>Form submited successfully.</h2>';
+                    echo '</div>';
+
+                    break;
+                case 'error':
+                    
+                    echo '<div class="flw100 errorForm formStatus">';
+                    echo '<h2>We encountered error while submiting form. Please try again or later.</h2>';
+                    echo '</div>';
+
+                    break;
+
+                default:
+                    break;
+            }
+            
+            ?>
+                <div class="adminPanel">
+                
+                    <div class="licensesDiv">
+
+                        <div style="width: 100%; height:20px;" class="blueBorderBottom">
+                            <div style="float: left; width: 352px;" >
+                                <p class="licensesTitle">License key</p>
+                            </div>
+                            <div style="float: left; width: 268px;">
+                                <p class="licensesTitle">Instance urls</p>
+                            </div>
+                            <div style="float: left; width: 340px;">
+                                <p class="licensesTitle">Authorised github users</p>
+                            </div>
+                        </div>
+                        <div class="border"></div>
+                        
+                        <?php
+                        if(!is_null($licensesData)){
+                            foreach ($licensesData as $oneLicense){
+
+                            ?>
+
+                            <div style="width: 100%; height:20px;">
+                                <div style="float: left; width: 352px;" class="padding20" >
+                                    <p class="infoText" id="license-1"><?php echo $oneLicense['licenseKey'] ?></p>
+                                </div>
+                                <div style="float: left; width: 268px;"  class="padding20">
+                                    <?php
+                                    if(isset($oneLicense['url'])){
+                                        foreach ($oneLicense['url'] as $oneURL) {
+                                    ?>
+
+                                    <p class="infoText urls"><?php echo $oneURL ?></p><br>
+
+                                    <?php
+                                        }
+                                    }else {
+                                        echo '<p class="infoText urls">No registered instances for this license.</p><br>';
+                                    }
+
+                                    ?>
+                                </div>
+                                <div style="float: left; width: 236px;"  class="padding20">
+                                     <p class="infoText" id="<?php echo $oneLicense['licenseKey'] ?>">
+                                        <?php
+                                        $counter = 1;
+                                        foreach ($oneLicense['username'] as $oneUser) {
+                                        ?>
+                                       <?php echo $oneUser.($counter == count($oneLicense['username']) ? '' :',&nbsp;'); ?>
+                                        <?php
+                                        $counter++;
+                                        }
+                                        ?>
+                                    </p>
+                                </div>
+                                <div style="float: left; width: 101px;"  class="padding20">
+                                    <button id="manage-1" licenseKey="<?php echo $oneLicense['licenseKey'] ?>" class="manageUsers">Manage users</button>
+                                </div>
+                            </div>
+                            <div class="border"></div>
+
+                            <?php
+                            }
+                        }
+                        ?>                        
+                        
+                        </div>
+                        <div class="paginationBlack fr">
+                                <?php echo $this->paginationControl($this->licensesData,'Sliding','paginator-license.phtml'); ?>
+                           </div>
+                        <div class="addlicenseDiv">
+                            <div class="loader"></div>
+                            <button id="generatelicense" userID="<?php echo $this->user->id ?>" class="addlicense">Add license</button>
+                        </div>
+                    <div class="divider"></div>
+                        <div class="downloadGitLaunchpad">
+                            
+                            <p class="adminPanelBlueLetters">
+                                download gitlaunchpad
+                            </p> 
+                            <div class="blueBorderBottom"></div>
+                            <div style="float: left;" class="padding30" >
+                                <div style="width: 100%;">
+                                    <div style="width: 125px; float: left;">
+                                        <p class="infoText">Latest version</p>
+                                    </div>
+                                    <div style="width: 90px;  float: left;">
+                                        <p class="infoText"><?php echo $this->version ?></p>
+                                    </div>
+                                    <div style="width: 640px;  float: left;">
+                                        <p class="infoText">Release date&nbsp;&nbsp;&nbsp;<?php echo $this->date ?></p>
+                                    </div>
+                                    <div style="width: 105px;  float: left;">                                        
+                                        <a href="<?php echo APP_URL.'/onlineshop/downloadgitlaucnhpad/admin/admin'; ?>" target="_blank" class="downloadRelease"><span class="linkSpan">Download now</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border"></div>
+                       </div>
+                        
+                       <div class="getsupport">
+                           
+                        <p class="licensesTitle">
+                            get support
+                        </p>                        
+                        <div class="blueBorderBottom"></div>
+                        <div class="supportFormDiv">
+                            <form action="<?php echo APP_URL.'/gl/content/submitticket'?>" id="ticketForm" method="post" enctype="multipart/form-data">
+                                <div class="attachmentsDiv">
+
+                                    <div class="selectProblem">
+                                        <span class="spanSelect" id="selectValue" value="">What are you having problems with?</span>
+                                        <select id="selectProblem" name="newTicket" class="select465">
+                                            <option value="What are you having problems with?">What are you having problems with?</option>
+                                            
+                                            <?php
+                                            
+                                                foreach ($this->problems['title'] as $problem){
+                                                    
+                                                    echo '<option value="'.$problem.'">'.$problem.'</option>';
+                                                }
+                                            
+                                            ?>
+                                            
+                                        </select>
+                                    </div>
+
+                                    <div class="attachmentField">
+
+                                        <div class="cabinetSupport">
+                                            <span class="attachmentSpan">Select file</span>
+                                            <input type="file" class="uploadFile activeFile" name="attachment[]" id="file-1">
+                                            <input type="hidden" id="attachmentCount" value="1"> 
+                                        </div>
+                                        <div style="width: 92px; float: left;">
+                                                <button type="button" class="addProblem">+ add</button>
+                                        </div>                                    
+                                    </div>
+
+                                    <div class="fileList">                                  
+                                        <ol class="attachmentList">                                                                          
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                <div class="areaDiv">
+                                    <textarea class="supportArea" name="ticketMessage"></textarea>
+                                </div>
+
+                                <div class="submitSupport">                                    
+                                    <span class="formSubmitSpan">
+                                        <p class="formSubmitErrorInfo">                                            
+                                        </p>
+                                    </span>
+                                    <input type="submit" class="submitSupportButton" value="Submit request"/>
+                                    <div class="formSubmitLoader"></div> 
+                                </div>
+                            </form>
+                        </div>
+                            
+                            
+                        </div>
+                        
+                       <div class="supportrequest">
+                           
+                            <div style="width: 100%; height:20px;" class="blueBorderBottom">
+                                
+                                <div style="float: left; width: 225px;" >
+                                    <p class="licensesTitle">Support request #</p>
+                                </div>
+                                <div style="float: left; width: 190px;">
+                                    <p class="licensesTitle">Topic</p>
+                                </div>
+                                <div style="float: left; width: 310px;">
+                                    <p class="licensesTitle">Last reply</p>
+                                </div>
+                                <div style="float: left; width: 235px;">
+                                    <p class="licensesTitle">Status</p>
+                                </div>
+                                
+                            </div>
+                           
+                           <?php
+                           
+                           if(is_null($this->tickets)){
+                               
+                               echo '<div style="float: left; width: 225px;" class="padding20" >
+                                     <p class="infoText">There are no tickets.</p>
+                                     </div>';
+                           }else{
+                               
+                             
+                                foreach($this->tickets as $oneTicket){                           
+                           ?>
+                           
+                           <div style="width: 100%; height:20px;">
+                               
+                                <div style="float: left; width: 225px;" class="padding20" >
+                                    <p class="infoText<?php echo ($oneTicket['is_read'] ? '' : ' boldedText');  ?>"><?php echo $oneTicket['ticketCode'] ?></p>
+                                </div>
+                                <div style="float: left; width: 190px;"  class="padding20">
+                                    <p class="infoText urls <?php echo ($oneTicket['is_read'] ? '' : ' boldedText');  ?>"><?php echo $oneTicket['title'] ?></p>                                  
+                                </div>
+                                <div style="float: left; width: 310px;"  class="padding20">
+                                    <p class="infoText <?php echo ($oneTicket['is_read'] ? '' : ' boldedText');  ?>">
+                                 <?php                                     
+                                    if(isset($oneTicket['reply'])){
+                                        echo $oneTicket['reply'];
+                                    }else{
+                                        echo 'No replies to ticket';
+                                    }
+                                  ?></p>
+                                </div>
+                                <div style="float: left; width: 138px;"  class="padding20">
+                                    <p class="infoText <?php echo ($oneTicket['is_read'] ? '' : ' boldedText');  ?>"><?php echo $oneTicket['status'] ?></p><br>    
+                                </div>
+                                <div style="float: left; width: 97px;"  class="padding20">
+                                    <a href="<?php echo APP_URL.'/gl/content/viewticket/ticketID/'.$oneTicket['id'].'/userID/'.$this->user->id; ?>" class="viewReply"><span><p>View/Reply</p></span></a>
+                                </div>
+                            </div>
+                            <div class="border"></div>
+                        
+                            <?php
+                                }
+                            }
+                            ?>
+                           <div class="paginationBlack fr">
+                                <?php echo $this->paginationControl($this->tickets,'Sliding','paginator.phtml'); ?>
+                           </div>
+                       </div>
+                    
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+    <div id="userPanel"></div>

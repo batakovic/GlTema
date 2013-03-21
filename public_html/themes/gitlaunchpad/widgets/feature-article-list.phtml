@@ -1,0 +1,115 @@
+<?php
+
+$counter=1;
+
+foreach($articles as $articleSingle)
+{
+    $homepageArticle = $articleSingle['content']; 
+    $rowImageDiv="";
+    $rowTextDiv="";
+    $rowTitle="";
+    $rowText="";
+    $imageUrl="";
+    
+    switch ($counter) {
+        case 1:
+                $rowImageDiv="firstRowImageDiv";
+                $rowTextDiv="firstRowTextDiv";
+                $rowTitle="firstRowTitle";
+                $rowText="firstRowText";
+               // $imageUrl= APP_URL ."content_data_feature_article/1518--deploymentmap.png";
+
+            break;
+        case 2:
+                $rowImageDiv="secondRowImageDiv";
+                $rowTextDiv="secondRowTextDiv";
+                $rowTitle="secondRowTitle";
+                $rowText="secondRowText";
+               // $imageUrl= APP_URL ."content_data_feature_article/1524--patches.png";
+
+            break;
+        case 3:
+                $rowImageDiv="thirdRowImageDiv";
+                $rowTextDiv="thirdRowTextDiv";
+                $rowTitle="thirdRowTitle";
+                $rowText="thirdRowText";
+              //  $imageUrl= APP_URL ."content_data_feature_article/1529--commandtool.png";
+
+            break;
+        case 4:
+                $rowImageDiv="fourthRowImageDiv";
+                $rowTextDiv="fourthRowTextDiv";
+                $rowTitle="fourthRowTitle";
+                $rowText="fourthRowText";
+              //  $imageUrl= APP_URL ."content_data_feature_article/1536--unittest.png";
+
+            break;
+        case 5:
+                $rowImageDiv="fifthRowImageDiv";
+                $rowTextDiv="fifthRowTextDiv";
+                $rowTitle="fifthRowTitle";
+                $rowText="fifthRowText";
+              //  $imageUrl= APP_URL ."content_data_feature_article/1533--phpdoc.png";
+
+            break;
+
+        default:
+            break;
+    }
+    $imageUrl = APP_URL.$homepageArticle->thumb;
+?>
+
+
+    <? if($counter==1 || $counter==3 || $counter==5){?>
+    <div class="bigContainter">
+                
+                <div class="imageDiv <? echo $rowImageDiv; ?>">                    
+                    <img src="<? echo $imageUrl; ?>">
+                </div>
+                <div class="textDiv <? echo $rowTextDiv; ?>">
+                    <div class="title <? echo $rowTitle; ?>">                                            
+                        <? echo $homepageArticle->title; ?>
+                    </div>
+                     
+                    <div class="text <? echo $rowText; ?>" >
+                        <? echo stripcslashes($homepageArticle->description); ?>
+                    </div>
+                </div>    
+                <div class="clear"></div>             
+     </div> 
+    <? } else if($counter==2 || $counter==4) {?>
+    <div class="bigContainter">                
+        
+                 <div class="textDiv <? echo $rowTextDiv; ?>">
+                    <div class="title <? echo $rowTitle; ?>">                                            
+                        <? echo $homepageArticle->title; ?>
+                    </div>
+                     
+                    <div class="text <? echo $rowText; ?>" >
+                        <? if($counter==2)
+                        {
+                            echo "<p class=\"secondRowTextP\"> ";
+                            echo $homepageArticle->description; 
+                        }
+                        else                            
+                            echo $homepageArticle->description; ?>
+                    </div>
+                </div> 
+                <div class="imageDiv <? echo $rowImageDiv; ?>">                    
+                    <img src="<? echo $imageUrl; ?>">
+                </div>
+                  
+                <div class="clear"></div>             
+     </div> 
+    
+<?php } 
+    
+    $rowImageDiv="";
+    $rowTextDiv="";
+    $rowTitle="";
+    $rowText="";
+    $imageUrl="";
+
+    $counter++;
+}
+?>

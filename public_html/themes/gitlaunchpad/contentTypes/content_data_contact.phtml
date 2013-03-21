@@ -1,0 +1,92 @@
+<?php 
+
+        $title=$this->article->bannertitle;        
+        $text=$this->article->content_text;        
+        
+        
+        //$tweeterUrl = str_replace(WEB_ROOT_PATH, APP_URL, $this->article->tweeter);
+        $tweeterUrl = APP_URL.$this->article->tweeter;
+        $linkedinUrl = APP_URL.$this->article->linkedin;
+        $belgradeUrl = APP_URL.$this->article->belgrade;
+        
+        
+        $description=$this->article->description;
+
+        
+        $contactForm = $this->regions['Content area']['contact-form.phtml'][0];
+        
+        
+        
+        
+        
+        
+?>
+
+
+        <div id="aboutBanner">
+            <div id="aboutBannerTextDiv">
+                <p id="aboutBannerText">
+                    <? echo stripslashes($title); ?>
+                </p>
+            </div>            
+        </div>
+         <div id="greyRibbon"></div>
+         
+          <div class ="wrapper" style="border-bottom: 1px solid; border-bottom-color: #e6e6e6; height: 615px;">
+         
+         <div class="mainContainer" >
+             
+             <div class="leftContainer">
+                 
+                    <div id="emailDiv">
+                
+                        <p id="emailDivText">
+                            <? echo stripslashes($text); ?>
+                        </p>   
+                        <p class="followUs">FOLLOW US:</p> 
+                    </div>
+                 
+                    <div id="linkedInContainer">
+                        <div id="about_Tweeter">
+                            <a href="#"><img src="<? echo $tweeterUrl; ?>"></a>
+                        </div>
+                        <div id="about_linkedIn">
+                            <a href="#"><img src="<? echo $linkedinUrl; ?>"></a>
+                        </div>
+                        <div id="belgrade">
+                             <img src="<? echo $belgradeUrl; ?>">
+                        </div>
+            
+                    </div>
+                 
+             </div>
+             
+             <div class="rightContainer">
+                    <div class="blackField">
+                          <p class="blackFieldText blackFieldTextContact">
+                            <? echo stripslashes($description); ?>
+                          </p>
+                    </div>
+                 
+                    <div class="contactForm">
+                        <?php  
+                        $contactForm = $this->regions['Content area']['contact-form.phtml'][0];
+                        require WEB_ROOT_PATH.$this->theme->path."/formTypes/form_data_contact_form.phtml";
+                        ?>
+                    </div>
+                 
+                 
+             </div>
+             
+             
+             
+         </div>
+              
+          </div>
+
+
+<?                
+        // $contactForm = $this->forms['contact form'];
+        // require WEB_ROOT_PATH.$this->theme->path."/formTypes/form_data_contact_form.phtml";
+                
+?>
